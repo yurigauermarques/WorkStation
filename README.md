@@ -1,0 +1,7 @@
+# atalhos
+
+Preparo.
+
+```bash
+
+```
