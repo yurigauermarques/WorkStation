@@ -11,8 +11,11 @@ sudo apt-get install nfs-common -y
 sudo apt-get install git -y
 
 eval `ssh-agent -s`
-ssh-add ~/.ssh/id_rsa
+#ssh-add ~/.ssh/id_rsa
 
+
+ls ~/ -lhas
+sudo ls ~/ -lhas
 
 #curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 #echo \

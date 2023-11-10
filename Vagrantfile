@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
       host.vm.provision "file", source: "~/.ssh/id_rsa", destination: ".ssh/id_rsa"
       host.vm.provision "file", source: "~/.ssh/id_rsa.pub", destination: ".ssh/id_rsa.pub"
       #host.vm.provision "shell", path: "init.sh" privileged false
-      host.vm.provision "shell", path: "init.sh"
+      host.vm.provision "shell", path: "init.sh", privileged: false
       host.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
     end
   end
