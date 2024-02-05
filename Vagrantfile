@@ -15,10 +15,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = env['box']
   config.vm.hostname = env['hostname']
-  config.vm.network "private_network", ip: env['ipaddress']
-  
-  config.vm.network "public_network", :bridge => env['bridge']
+  config.vm.network "private_network", ip: env['ipaddress']  
+  config.vm.network "public_network", :bridge => env['bridge']  
   config.vm.synced_folder env['project_dir'], "/projetos"
+
   config.vm.provider "virtualbox" do |vb|
     vb.name = env['name']
     vb.cpus = env['cpu']
