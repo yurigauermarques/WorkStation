@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# include .profile if it exists
+if [ -f "$HOME/.profile" ]; then
+    . "$HOME/.profile"
+fi
+
+
+# Sometimes we can override any variables from parent
+source /home/vagrant/.env
+cd ${PROJECT_DIR}
+# cd /storage/station/project

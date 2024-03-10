@@ -1,2 +1,4 @@
 .vagrant
 *.log
+project
+.scripts/bash/host.env
