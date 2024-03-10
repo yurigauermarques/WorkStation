@@ -31,9 +31,6 @@ EOF
 # export HOST_IP=$(ip route get $(ip route show 0.0.0.0/0 | grep -oP 'via \K\S+') | grep -oP 'src \K\S+')
 # export NAMESERVER_IP=$(cat /etc/resolv.conf | grep nameserver | cut -d " " -f2 | head -n 1)
 
-# Always move to /vagrant at startup
-# cd ${PROJECT_DIR}
-# cd /project
 
 # Install docker if not exists
 if ! command -v docker &> /dev/null; then
