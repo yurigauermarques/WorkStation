@@ -1,12 +1,10 @@
 #!/bin/bash
 
-
-
 # Update, best practices and install dependencies
 sudo add-apt-repository ppa:ondrej/php;
 sudo apt-get update -y \
     && apt-get install -y --no-install-recommends \
-        curcol \
+        curl \
         make \
         git \
         php8.2 php8.2-zip php8.2-xml php8.2-pgsql php8.2-intl php8.2-mbstring \
@@ -36,7 +34,6 @@ EOF
 if ! command -v docker &> /dev/null; then
     curl -fsSL https://get.docker.com -o install-docker.sh
     sudo sh install-docker.sh
-    sudo usermod -aG docker ${USER}
     # sudo usermod -aG docker vagrant
     sudo rm install-docker.sh
     DOCKER_COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
@@ -48,4 +45,3 @@ fi;
 ## Install Symfony
 curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash
 sudo apt install symfony-cli
-symfony server:ca:install

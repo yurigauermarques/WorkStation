@@ -16,8 +16,8 @@ Vagrant.configure("2") do |config|
   
   config.ssh.forward_agent = true
   
-  config.vm.provision "file", source: ".scripts/bash/host.env", destination: "/home/vagrant/.env", run: "always"
   config.vm.provision "shell", path: ".scripts/bash/init.sh"
+  config.vm.provision "file", source: ".scripts/bash/host.env", destination: "/home/vagrant/.env", run: "always"
   config.vm.provision "file", source: ".scripts/bash/.bash_login", destination: "/home/vagrant/.bash_login", run: "always"
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
 

@@ -1,10 +1,15 @@
 #!/bin/bash
 
+echo ${USER}
+
 # include .profile if it exists
 if [ -f "$HOME/.profile" ]; then
     . "$HOME/.profile"
 fi
 
+
+sudo usermod -aG docker ${USER}
+symfony server:ca:install
 
 # Sometimes we can override any variables from parent
 source /home/vagrant/.env
