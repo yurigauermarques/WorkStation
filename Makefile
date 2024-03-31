@@ -30,3 +30,11 @@ destroy:
 reload:
 	vagrant reload
 .PHONY: reload
+
+ssh-config:
+	vagrant ssh-config
+.PHONY: ssh-config
+
+code-projects:	
+	code --remote ssh-remote+${name} /storage/station/projects/$(if $(project),$(project),)
+.PHONY: code-projects
