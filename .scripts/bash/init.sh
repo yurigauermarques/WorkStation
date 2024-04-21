@@ -8,8 +8,12 @@ sudo apt-get update -y \
         make \
         git \
         php8.2 php8.2-zip php8.2-xml php8.2-pgsql php8.2-intl php8.2-mbstring \
+        php8.2-xdebug \
     && true
 
+# Configura o Xdebug
+sudo rm -rf /etc/php/8.2/cli/conf.d/20-xdebug.ini 
+sudo ln -s /home/vagrant/20-xdebug.ini /etc/php/8.2/cli/conf.d/20-xdebug.ini    
 
 ## Install Composer
 COMPOSER_SUM="28a8d9740d615137a8c01d32aef9184db16f543fca36db038501a294d8e95b24"
@@ -40,7 +44,6 @@ if ! command -v docker &> /dev/null; then
     sudo curl -L "https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
     sudo chmod +x /usr/local/bin/docker-compose
 fi;
-
 
 ## Install Symfony
 curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | sudo -E bash

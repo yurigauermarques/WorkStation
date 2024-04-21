@@ -6,10 +6,15 @@ if [ -f "$HOME/.profile" ]; then
     . "$HOME/.profile"
 fi
 
+#Know_hosts
+touch ${HOME}/.ssh/known_hosts;
+ssh-keyscan github.com 2>/dev/null > ${HOME}/.ssh/known_hosts;
 
-sudo usermod -aG docker ${USER}
-symfony server:ca:install
+mkdir /home/vagrant/log/;
+
+sudo usermod -aG docker ${USER};
+symfony server:ca:install;
 
 # Sometimes we can override any variables from parent
-source /home/vagrant/.env
-cd ${PROJECT_DIR}
+source /home/vagrant/.env;
+cd ${PROJECT_DIR};

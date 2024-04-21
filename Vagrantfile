@@ -12,11 +12,13 @@ Vagrant.configure("2") do |config|
   config.vm.box = ENV['box']
   config.vm.network "private_network", ip: ENV['ipaddress']  
   config.vm.network "public_network", :bridge => ENV['bridge']  
+  config.vm.network "forwarded_port", guest: 80, host: 80 
   config.vm.hostname = ENV['hostname']
   
   config.ssh.forward_agent = true
   
   config.vm.provision "shell", path: ".scripts/bash/init.sh"
+  config.vm.provision "file", source: ".scripts/bash/20-xdebug.ini", destination: "/home/vagrant/20-xdebug.ini", run: "always"
   config.vm.provision "file", source: ".scripts/bash/host.env", destination: "/home/vagrant/.env", run: "always"
   config.vm.provision "file", source: ".scripts/bash/.bash_login", destination: "/home/vagrant/.bash_login", run: "always"
   config.vm.provision "file", source: "~/.gitconfig", destination: ".gitconfig"
