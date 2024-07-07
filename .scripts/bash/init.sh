@@ -8,9 +8,9 @@ sudo apt-get update -y \
         make \
         git \
         php8.2 php8.2-zip php8.2-xml php8.2-pgsql php8.2-intl php8.2-mbstring \
-        php8.2-xdebug \
+        php8.2-pcov php8.2-xdebug \
     && true
-
+    
 # Configura o Xdebug
 sudo rm -rf /etc/php/8.2/cli/conf.d/20-xdebug.ini 
 sudo ln -s /home/vagrant/20-xdebug.ini /etc/php/8.2/cli/conf.d/20-xdebug.ini    
