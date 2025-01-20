@@ -36,5 +36,5 @@ ssh-config:
 .PHONY: ssh-config
 
 code-projects:	
-	code --remote ssh-remote+${name} /storage/station/projects/$(if $(project),$(project),)
+	code --remote ssh-remote+${name} ${project_dir}/$(if $(project),$(project),)
 .PHONY: code-projects

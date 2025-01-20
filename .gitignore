@@ -3,3 +3,4 @@
 /projects/*
 !projects/.gitkeep
 .scripts/bash/host.env
+.env

@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = ENV['box']
   config.vm.network "private_network", ip: ENV['ipaddress']  
   config.vm.network "public_network", :bridge => ENV['bridge']  
-  config.vm.network "forwarded_port", guest: 80, host: 80 
+  config.vm.network "forwarded_port", guest: 80, host: 1234 
   config.vm.hostname = ENV['hostname']
   
   config.ssh.forward_agent = true
