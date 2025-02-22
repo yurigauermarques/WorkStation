@@ -1,0 +1,123 @@
+---
+- hosts: all
+  become: true
+  vars:
+    docker_compose_version: "{{ lookup('url', 'https://api.github.com/repos/docker/compose/releases/latest', split_lines=False) | from_json | json_query('tag_name') }}"
+    dir: "{{ lookup('env', 'dir') }}"
+  tasks:
+
+    - name: Adicionar repositórios
+      block:
+      - name: PHP
+        apt_repository:
+          repo: 'ppa:ondrej/php'
+          state: present
+
+      - name: Symfony CLI - Adicionar chave GPG
+        apt_key:
+          url: 'https://dl.cloudsmith.io/public/symfony/stable/gpg.key'
+          state: present
+
+      - name: Symfony CLI
+        apt_repository:
+          repo: 'deb https://dl.cloudsmith.io/public/symfony/stable/deb/ubuntu focal main'
+          state: present
+
+
+    - name: Atualizar lista de pacotes
+      apt:
+        update_cache: yes
+
+    - name: Instalar pacotes necessários
+      apt:
+        name:
+          - curl
+          - git
+          - make
+          - php8.2
+          - php8.2-zip
+          - php8.2-xml
+          - php8.2-pgsql
+          - php8.2-intl
+          - php8.2-mbstring
+          - php8.2-pcov
+          - php8.2-xdebug
+          - symfony-cli
+        state: present
+        install_recommends: no
+
+
+    - name: Adicionar Alias para Symfony CLI
+      lineinfile:
+        path: ~/.bashrc
+        line: 'alias sf="php bin/console"'
+        create: yes
+      become_user: vagrant
+      
+    - name: Definir diretório padrão ao usar vagrant ssh
+      lineinfile:
+        path: ~/.bashrc
+        line: 'cd {{ dir }}'
+        create: yes
+      become_user: vagrant
+
+    # - name: Configurar Xdebug
+    #   file:
+    #     path: /etc/php/8.2/cli/conf.d/20-xdebug.ini
+    #     state: absent
+
+    # - name: Criar link simbólico para Xdebug
+    #   file:
+    #     src: /home/vagrant/20-xdebug.ini
+    #     dest: /etc/php/8.2/cli/conf.d/20-xdebug.ini
+    #     state: link
+
+    - name: Instalar Composer
+      get_url:
+        url: "https://getcomposer.org/download/2.2.18/composer.phar"
+        dest: /usr/local/bin/composer
+        mode: '0755'
+      register: composer_download
+
+    - name: Instalar Docker
+      block:
+        - name: Baixar script de instalação do Docker
+          get_url:
+            url: https://get.docker.com
+            dest: /tmp/install-docker.sh
+            mode: '0755'
+
+        - name: Executar script de instalação do Docker
+          command: sh /tmp/install-docker.sh
+
+        - name: Remover script de instalação do Docker
+          file:
+            path: /tmp/install-docker.sh
+            state: absent
+
+        - name: Adicionar usuário vagrant ao grupo docker
+          command: usermod -aG docker vagrant
+
+        - name: Baixar Docker Compose
+          get_url:
+            url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+            dest: /usr/local/bin/docker-compose
+            mode: '0755'
+      when: docker_installed is not defined or not docker_installed
+
+
+    - name: Instalar Node.js
+      block:
+        - name: Baixar script de instalação do Node.js
+          get_url:
+            url: https://deb.nodesource.com/setup_22.x
+            dest: /tmp/install-nodejs.sh
+            mode: '0755'
+
+        - name: Executar script de instalação do Node.js
+          command: sh /tmp/install-nodejs.sh
+
+        - name: apeteca Node.js
+          apt:
+            name:
+              - nodejs

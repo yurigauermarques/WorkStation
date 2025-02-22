@@ -8,6 +8,7 @@ Uma configuração padrão de Vagrant para desenvolvimento com Symfony PHP
 
 - [Virtualbox-7.0](https://www.virtualbox.org/)
 - [Vagrant](https://developer.hashicorp.com/vagrant)
+- [Ansible](https://docs.ansible.com/)
 - [Make](https://www.gnu.org/software/make/manual/make.html)
 
 ## Softwares Instalados
@@ -17,6 +18,7 @@ Uma configuração padrão de Vagrant para desenvolvimento com Symfony PHP
   > php8.2-zip  php8.2-xml      php8.2-pgsql
   >
   > php8.2-intl php8.2-mbstring php8.2-xdebug
+- [Nodejs 22](https://nodejs.org/pt)
 - [Xdebug](https://xdebug.org/)
 - [Composer](https://getcomposer.org)
 - [Docker](https://www.docker.com/)

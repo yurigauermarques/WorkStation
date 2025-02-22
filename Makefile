@@ -38,3 +38,8 @@ ssh-config:
 code-projects:	
 	code --remote ssh-remote+${name} ${project_dir}/$(if $(project),$(project),)
 .PHONY: code-projects
+
+
+code-vps:	
+	code --remote ssh-remote+curral
+.PHONY: code-projects
